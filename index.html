@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>✨ My June Glow-Up Plan ✨</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink:    #f9a8d4;
+      --rose:    #fb7185;
+      --purple:  #c084fc;
+      --lavender:#e9d5ff;
+      --peach:   #fde68a;
+      --cream:   #fff7ed;
+      --dark:    #4a1942;
+      --mid:     #7c3aed;
+      --card-bg: rgba(255,255,255,0.75);
+      --shadow:  0 4px 24px rgba(180,80,180,0.13);
+      --radius:  20px;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #fce4f3 0%, #ede9fe 50%, #fdf4ff 100%);
+      min-height: 100vh;
+      color: var(--dark);
+      padding-bottom: 40px;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #f472b6, #a855f7);
+      padding: 32px 20px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 6vw, 2.4rem);
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      letter-spacing: -0.5px;
+    }
+    header p.subtitle {
+      margin-top: 6px;
+      color: rgba(255,255,255,0.88);
+      font-size: 0.95rem;
+    }
+
+    /* ── Quote banner ── */
+    #quote-banner {
+      background: linear-gradient(90deg, var(--rose), var(--purple));
+      color: #fff;
+      text-align: center;
+      padding: 14px 20px;
+      font-size: 0.9rem;
+      font-style: italic;
+      line-height: 1.5;
+    }
+    #quote-banner span { font-style: normal; font-weight: 700; display: block; margin-top: 2px; font-size: 0.8rem; opacity: 0.9; }
+
+    /* ── Main layout ── */
+    main { max-width: 600px; margin: 0 auto; padding: 20px 16px 0; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 20px;
+      margin-bottom: 20px;
+      border: 1.5px solid rgba(255,255,255,0.6);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .card-icon { font-size: 1.5rem; }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: var(--mid); }
+
+    /* ── Progress ── */
+    #streak-bar { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+    #streak-count { font-size: 2rem; font-weight: 800; color: var(--rose); line-height: 1; }
+    #streak-label { font-size: 0.85rem; color: #6b7280; line-height: 1.3; }
+    .progress-track {
+      background: var(--lavender);
+      border-radius: 99px;
+      height: 14px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--rose), var(--purple));
+      transition: width 0.5s ease;
+    }
+    #progress-label { font-size: 0.8rem; color: #6b7280; margin-top: 4px; text-align: right; }
+
+    /* ── Habits ── */
+    .habits-grid { display: grid; gap: 10px; }
+    .habit-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(90deg, rgba(249,168,212,0.18), rgba(192,132,252,0.12));
+      border-radius: 14px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+      border: 1.5px solid transparent;
+    }
+    .habit-item:active { transform: scale(0.97); }
+    .habit-item.done {
+      background: linear-gradient(90deg, rgba(249,168,212,0.45), rgba(192,132,252,0.35));
+      border-color: var(--pink);
+    }
+    .habit-check {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 2.5px solid var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      background: #fff;
+    }
+    .habit-item.done .habit-check {
+      background: linear-gradient(135deg, var(--rose), var(--purple));
+      border-color: transparent;
+      color: #fff;
+    }
+    .habit-emoji { font-size: 1.3rem; }
+    .habit-text { flex: 1; }
+    .habit-text strong { display: block; font-size: 0.95rem; font-weight: 600; }
+    .habit-text small { font-size: 0.78rem; color: #9ca3af; }
+
+    /* ── Date header for habits ── */
+    #today-label { text-align: center; font-size: 0.85rem; color: #9ca3af; margin-bottom: 12px; }
+
+    /* ── Calendar ── */
+    #calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .cal-day-name {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-align: center;
+      color: #9ca3af;
+      padding-bottom: 2px;
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--dark);
+      background: rgba(255,255,255,0.5);
+      border: 1.5px solid transparent;
+    }
+    .cal-day:hover { transform: scale(1.1); }
+    .cal-day.today { border-color: var(--rose); color: var(--rose); }
+    .cal-day.glowed {
+      background: linear-gradient(135deg, var(--rose), var(--purple));
+      color: #fff;
+      border-color: transparent;
+    }
+    .cal-day.future { opacity: 0.35; pointer-events: none; }
+    .cal-day.empty { background: transparent; cursor: default; }
+
+    /* ── Goals ── */
+    .goal-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(192,132,252,0.25);
+    }
+    .goal-item:last-child { border-bottom: none; }
+    .goal-item input[type="text"] {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--dark);
+      outline: none;
+    }
+    .goal-item input[type="text"]::placeholder { color: #d1d5db; }
+    .goal-cb {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border-radius: 6px;
+      border: 2px solid var(--purple);
+      background: #fff;
+      appearance: none;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+      margin-top: 2px;
+    }
+    .goal-cb:checked {
+      background: linear-gradient(135deg, var(--rose), var(--purple));
+      border-color: transparent;
+    }
+    .goal-cb:checked::after {
+      content: '✓';
+      position: absolute;
+      inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1;
+      padding-top: 1px;
+    }
+    .goal-done-text { text-decoration: line-through; opacity: 0.5; }
+    .add-goal-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      background: none;
+      border: 2px dashed var(--lavender);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      color: var(--purple);
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .add-goal-btn:hover { border-color: var(--purple); background: rgba(192,132,252,0.07); }
+
+    /* ── Affirmations ── */
+    .affirmation-card {
+      background: linear-gradient(135deg, #fdf2f8, #faf5ff);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 12px;
+      border: 1.5px solid rgba(249,168,212,0.4);
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--dark);
+      text-align: center;
+      position: relative;
+    }
+    .affirmation-card::before { content: '"'; font-size: 2.5rem; color: var(--pink); line-height: 0; vertical-align: -0.5rem; margin-right: 4px; font-style: normal; }
+    .affirmation-card::after  { content: '"'; font-size: 2.5rem; color: var(--pink); line-height: 0; vertical-align: -0.5rem; margin-left: 4px;  font-style: normal; }
+    #refresh-affirmation {
+      display: block;
+      margin: 8px auto 0;
+      background: none;
+      border: none;
+      color: var(--purple);
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* ── Notes ── */
+    #journal-text {
+      width: 100%;
+      min-height: 110px;
+      border: 1.5px solid rgba(192,132,252,0.3);
+      border-radius: 14px;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--dark);
+      background: rgba(255,255,255,0.6);
+      resize: vertical;
+      outline: none;
+      line-height: 1.6;
+      transition: border-color 0.2s;
+    }
+    #journal-text:focus { border-color: var(--purple); }
+    #journal-text::placeholder { color: #d1d5db; }
+    #journal-save {
+      margin-top: 10px;
+      background: linear-gradient(135deg, var(--rose), var(--purple));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 24px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      width: 100%;
+    }
+    #journal-save:active { opacity: 0.85; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 30px 20px 10px;
+      font-size: 0.8rem;
+      color: #c4b5fd;
+    }
+    footer span { display: block; font-size: 1.3rem; margin-bottom: 4px; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: linear-gradient(135deg, var(--rose), var(--purple));
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 99px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(180,80,180,0.35);
+      transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
+      z-index: 100;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <h1>✨ My June Glow-Up Plan ✨</h1>
+  <p class="subtitle">30 days of becoming my best self 🌸</p>
+</header>
+
+<!-- Quote banner -->
+<div id="quote-banner">
+  <em id="quote-text">Loading your daily vibe...</em>
+  <span id="quote-author"></span>
+</div>
+
+<main>
+
+  <!-- Streak / Progress -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🔥</span>
+      <span class="card-title">My June Progress</span>
+    </div>
+    <div id="streak-bar">
+      <div id="streak-count">0</div>
+      <div id="streak-label">day streak<br/><small style="color:#c4b5fd">Keep it up! 💪</small></div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div id="progress-label">0 / 30 days glowed up</div>
+  </div>
+
+  <!-- Daily Habits -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">☀️</span>
+      <span class="card-title">Today's Habits</span>
+    </div>
+    <div id="today-label"></div>
+    <div class="habits-grid" id="habits-list">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
+  <!-- June Calendar -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📅</span>
+      <span class="card-title">June Glow Calendar</span>
+    </div>
+    <div id="calendar-grid"></div>
+    <p style="font-size:0.78rem;color:#9ca3af;margin-top:10px;text-align:center;">Tap a past day to mark it as a glow day 💖</p>
+  </div>
+
+  <!-- Weekly Goals -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🎯</span>
+      <span class="card-title">My June Goals</span>
+    </div>
+    <div id="goals-list"></div>
+    <button class="add-goal-btn" id="add-goal-btn">＋ Add a goal</button>
+  </div>
+
+  <!-- Affirmations -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">💜</span>
+      <span class="card-title">Daily Affirmation</span>
+    </div>
+    <div class="affirmation-card" id="affirmation-text"></div>
+    <button id="refresh-affirmation">✨ New affirmation</button>
+  </div>
+
+  <!-- Journal / Notes -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📓</span>
+      <span class="card-title">My Glow-Up Journal</span>
+    </div>
+    <textarea id="journal-text" placeholder="Write your thoughts, wins, reflections… 🌸"></textarea>
+    <button id="journal-save">💾 Save Journal</button>
+  </div>
+
+</main>
+
+<footer>
+  <span>🌸</span>
+  Made with love · June 2026
+</footer>
+
+<div id="toast"></div>
+
+<script>
+/* ────────────────────────────────────────
+   Data
+──────────────────────────────────────── */
+const HABITS = [
+  { id: 'water',     emoji: '💧', name: 'Drink 8 glasses of water',   sub: 'Hydration is glow' },
+  { id: 'skincare',  emoji: '✨', name: 'AM & PM skincare routine',    sub: 'Cleanse · tone · moisturise' },
+  { id: 'move',      emoji: '🏃‍♀️', name: 'Move your body 30 min',      sub: 'Walk · dance · stretch · gym' },
+  { id: 'fruit_veg', emoji: '🥗', name: 'Eat fruit & veggies',         sub: 'Nourish from the inside out' },
+  { id: 'sleep',     emoji: '😴', name: 'Sleep 7–9 hours',             sub: 'Beauty sleep is real!' },
+  { id: 'nophone',   emoji: '📵', name: 'Phone-free hour',             sub: 'Reclaim your calm' },
+  { id: 'journal',   emoji: '📓', name: 'Journaling / reflection',     sub: '5 min of mindfulness' },
+  { id: 'compliment',emoji: '💖', name: 'Give yourself a compliment',  sub: 'Be your own hype girl' },
+  { id: 'sunscreen', emoji: '☀️', name: 'Wear SPF (sun protection)',   sub: 'Every. Single. Day.' },
+  { id: 'learn',     emoji: '📚', name: 'Learn something new',         sub: 'Podcast · book · video' },
+];
+
+const QUOTES = [
+  { text: 'You are allowed to be both a masterpiece and a work in progress.', author: '— Sophia Bush' },
+  { text: 'Glow differently. Not for them — for you.', author: '— Unknown' },
+  { text: 'Self-care is not selfish. You cannot pour from an empty cup.', author: '— Unknown' },
+  { text: 'She believed she could, so she did.', author: '— R.S. Grey' },
+  { text: 'Fall in love with taking care of yourself — mind, body, spirit.', author: '— Unknown' },
+  { text: 'You deserve to be the most beautiful version of yourself.', author: '— Unknown' },
+  { text: 'The most powerful thing you can do is take care of yourself.', author: '— Unknown' },
+  { text: 'Invest in your skin. It is going to represent you for a very long time.', author: '— Linden Tyler' },
+  { text: 'Your only limit is you.', author: '— Unknown' },
+  { text: 'Bloom where you are planted.', author: '— Unknown' },
+  { text: 'Good things are coming. Keep going.', author: '— Unknown' },
+  { text: 'You have been criticising yourself for years, and it hasn\'t worked. Try approving of yourself and see what happens.', author: '— Louise L. Hay' },
+];
+
+const AFFIRMATIONS = [
+  'I am becoming the best version of myself every single day.',
+  'My body is healthy, strong and beautiful.',
+  'I radiate confidence, self-respect and inner harmony.',
+  'I deserve love, kindness and all the good things life has to offer.',
+  'I am proud of every small step I take towards my goals.',
+  'My glow comes from within — nobody can dim my light.',
+  'I choose myself every day.',
+  'I am enough, exactly as I am right now.',
+  'Every day I am growing, healing and becoming more me.',
+  'I attract positive energy and beautiful experiences.',
+  'My commitment to myself is unbreakable.',
+  'I honour my body and nourish it with love.',
+  'I am unstoppable when I believe in myself.',
+  'Beautiful things happen to me because I am beautiful inside and out.',
+  'My June glow-up is already working. I can feel the change.',
+];
+
+/* ────────────────────────────────────────
+   Storage helpers
+──────────────────────────────────────── */
+const key = k => `glowup_${k}`;
+const save  = (k, v) => localStorage.setItem(key(k), JSON.stringify(v));
+const load  = (k, d) => { try { const v = localStorage.getItem(key(k)); return v !== null ? JSON.parse(v) : d; } catch { return d; } };
+
+/* ────────────────────────────────────────
+   Toast
+──────────────────────────────────────── */
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+}
+
+/* ────────────────────────────────────────
+   Quotes
+──────────────────────────────────────── */
+function setQuote() {
+  const today = new Date().toDateString();
+  let idx = load('quote_idx', null);
+  let savedDate = load('quote_date', null);
+  if (savedDate !== today) {
+    idx = Math.floor(Math.random() * QUOTES.length);
+    save('quote_idx', idx);
+    save('quote_date', today);
+  }
+  const q = QUOTES[idx % QUOTES.length];
+  document.getElementById('quote-text').textContent = q.text;
+  document.getElementById('quote-author').textContent = q.author;
+}
+
+/* ────────────────────────────────────────
+   Affirmations
+──────────────────────────────────────── */
+let affIdx = 0;
+function showAffirmation(random) {
+  if (random) affIdx = Math.floor(Math.random() * AFFIRMATIONS.length);
+  document.getElementById('affirmation-text').textContent = AFFIRMATIONS[affIdx % AFFIRMATIONS.length];
+}
+document.getElementById('refresh-affirmation').addEventListener('click', () => showAffirmation(true));
+
+/* ────────────────────────────────────────
+   Habits
+──────────────────────────────────────── */
+const todayStr = () => new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+function renderHabits() {
+  const today = todayStr();
+  const done  = load(`habits_${today}`, []);
+  const list  = document.getElementById('habits-list');
+  const label = document.getElementById('today-label');
+
+  const d = new Date();
+  label.textContent = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+  list.innerHTML = '';
+  HABITS.forEach(h => {
+    const isDone = done.includes(h.id);
+    const el = document.createElement('div');
+    el.className = `habit-item${isDone ? ' done' : ''}`;
+    el.innerHTML = `
+      <div class="habit-check">${isDone ? '✓' : ''}</div>
+      <span class="habit-emoji">${h.emoji}</span>
+      <div class="habit-text">
+        <strong>${h.name}</strong>
+        <small>${h.sub}</small>
+      </div>`;
+    el.addEventListener('click', () => toggleHabit(h.id));
+    list.appendChild(el);
+  });
+
+  updateProgress();
+}
+
+function toggleHabit(id) {
+  const today = todayStr();
+  const done  = load(`habits_${today}`, []);
+  const idx   = done.indexOf(id);
+  if (idx === -1) {
+    done.push(id);
+    showToast('Habit logged! 🌸');
+  } else {
+    done.splice(idx, 1);
+  }
+  save(`habits_${today}`, done);
+
+  // auto-mark calendar if all habits done
+  if (done.length === HABITS.length) {
+    markGlowDay(today, true);
+    showToast('All habits done! You\'re glowing 🔥✨');
+  }
+
+  renderHabits();
+}
+
+/* ────────────────────────────────────────
+   Calendar
+──────────────────────────────────────── */
+function buildCalendar() {
+  const grid = document.getElementById('calendar-grid');
+  grid.innerHTML = '';
+
+  ['S','M','T','W','T','F','S'].forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'cal-day-name';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  const firstDay = new Date(2026, 5, 1).getDay(); // June 2026 starts on Monday (1)
+  const today    = new Date();
+  const todayD   = today.getDate();
+  const isJune   = today.getMonth() === 5 && today.getFullYear() === 2026;
+  const glowDays = load('glow_days', []);
+
+  // empty cells
+  for (let i = 0; i < firstDay; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day empty';
+    grid.appendChild(el);
+  }
+
+  for (let d = 1; d <= 30; d++) {
+    const el   = document.createElement('div');
+    const dateStr = `2026-06-${String(d).padStart(2,'0')}`;
+    const isPast  = !isJune ? true : d <= todayD;
+    const isToday = isJune && d === todayD;
+    const glowed  = glowDays.includes(dateStr);
+
+    el.className = `cal-day${glowed ? ' glowed' : ''}${isToday ? ' today' : ''}${!isPast && !isToday ? ' future' : ''}`;
+    el.textContent = d;
+    if (isToday && !glowed) el.textContent = '★';
+
+    if (isPast || isToday) {
+      el.addEventListener('click', () => toggleGlowDay(dateStr));
+    }
+    grid.appendChild(el);
+  }
+}
+
+function markGlowDay(dateStr, val) {
+  const days = load('glow_days', []);
+  if (val && !days.includes(dateStr)) days.push(dateStr);
+  save('glow_days', days);
+  buildCalendar();
+  updateProgress();
+}
+
+function toggleGlowDay(dateStr) {
+  const days = load('glow_days', []);
+  const idx  = days.indexOf(dateStr);
+  if (idx === -1) { days.push(dateStr); showToast('Glow day marked! 💅'); }
+  else            { days.splice(idx, 1); }
+  save('glow_days', days);
+  buildCalendar();
+  updateProgress();
+}
+
+/* ────────────────────────────────────────
+   Progress / Streak
+──────────────────────────────────────── */
+function updateProgress() {
+  const glowDays = load('glow_days', []);
+  const count    = glowDays.length;
+  const pct      = Math.round((count / 30) * 100);
+
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `${count} / 30 days glowed up`;
+
+  // streak — consecutive days ending today
+  let streak = 0;
+  const d = new Date();
+  while (true) {
+    const s = d.toISOString().slice(0, 10);
+    if (!glowDays.includes(s)) break;
+    streak++;
+    d.setDate(d.getDate() - 1);
+  }
+  document.getElementById('streak-count').textContent = streak;
+}
+
+/* ────────────────────────────────────────
+   Goals
+──────────────────────────────────────── */
+const DEFAULT_GOALS = [
+  { text: 'Complete full skincare routine every day', done: false },
+  { text: 'Work out at least 4× a week', done: false },
+  { text: 'Read one book', done: false },
+  { text: 'Drink water before coffee each morning', done: false },
+  { text: 'Try a new healthy recipe', done: false },
+];
+
+function renderGoals() {
+  const goals  = load('goals', DEFAULT_GOALS);
+  const list   = document.getElementById('goals-list');
+  list.innerHTML = '';
+
+  goals.forEach((g, i) => {
+    const row = document.createElement('div');
+    row.className = 'goal-item';
+
+    const cb  = document.createElement('input');
+    cb.type   = 'checkbox';
+    cb.className = 'goal-cb';
+    cb.checked   = g.done;
+    cb.addEventListener('change', () => {
+      goals[i].done = cb.checked;
+      inp.className = cb.checked ? 'goal-done-text' : '';
+      save('goals', goals);
+      if (cb.checked) showToast('Goal smashed! 🎉');
+    });
+
+    const inp = document.createElement('input');
+    inp.type  = 'text';
+    inp.value = g.text;
+    inp.className = g.done ? 'goal-done-text' : '';
+    inp.placeholder = 'Add your goal…';
+    inp.addEventListener('blur', () => {
+      goals[i].text = inp.value;
+      save('goals', goals);
+    });
+
+    const del = document.createElement('button');
+    del.textContent = '✕';
+    del.style.cssText = 'background:none;border:none;color:#d1d5db;cursor:pointer;font-size:1rem;padding:0 4px;';
+    del.addEventListener('click', () => {
+      goals.splice(i, 1);
+      save('goals', goals);
+      renderGoals();
+    });
+
+    row.append(cb, inp, del);
+    list.appendChild(row);
+  });
+}
+
+document.getElementById('add-goal-btn').addEventListener('click', () => {
+  const goals = load('goals', DEFAULT_GOALS);
+  goals.push({ text: '', done: false });
+  save('goals', goals);
+  renderGoals();
+  // focus last input
+  const inputs = document.getElementById('goals-list').querySelectorAll('input[type="text"]');
+  if (inputs.length) inputs[inputs.length - 1].focus();
+});
+
+/* ────────────────────────────────────────
+   Journal
+──────────────────────────────────────── */
+function loadJournal() {
+  document.getElementById('journal-text').value = load('journal', '');
+}
+document.getElementById('journal-save').addEventListener('click', () => {
+  save('journal', document.getElementById('journal-text').value);
+  showToast('Journal saved 💜');
+});
+
+/* ────────────────────────────────────────
+   Init
+──────────────────────────────────────── */
+setQuote();
+showAffirmation(false);
+affIdx = Math.floor(Math.random() * AFFIRMATIONS.length);
+showAffirmation(false);
+renderHabits();
+buildCalendar();
+updateProgress();
+renderGoals();
+loadJournal();
+</script>
+</body>
+</html>
