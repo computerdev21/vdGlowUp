@@ -313,6 +313,15 @@
       width: 100%;
     }
     #journal-save:active { opacity: 0.85; }
+    #journal-autosave-label {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      text-align: right;
+      margin-top: 5px;
+      min-height: 1.1em;
+      transition: color 0.3s;
+    }
+    #journal-autosave-label.saved { color: #a855f7; }
 
     /* ── Footer ── */
     footer {
@@ -424,6 +433,7 @@
       <span class="card-title">My Glow-Up Journal</span>
     </div>
     <textarea id="journal-text" placeholder="Write your thoughts, wins, reflections… 🌸"></textarea>
+    <div id="journal-autosave-label"></div>
     <button id="journal-save">💾 Save Journal</button>
   </div>
 
@@ -713,7 +723,7 @@ function renderGoals() {
     inp.value = g.text;
     inp.className = g.done ? 'goal-done-text' : '';
     inp.placeholder = 'Add your goal…';
-    inp.addEventListener('blur', () => {
+    inp.addEventListener('input', () => {
       goals[i].text = inp.value;
       save('goals', goals);
     });
@@ -745,11 +755,28 @@ document.getElementById('add-goal-btn').addEventListener('click', () => {
 /* ────────────────────────────────────────
    Journal
 ──────────────────────────────────────── */
+let journalSaveTimer;
+const journalLbl = () => document.getElementById('journal-autosave-label');
+function saveJournal() {
+  save('journal', document.getElementById('journal-text').value);
+  const lbl = journalLbl();
+  lbl.textContent = '✓ Saved';
+  lbl.classList.add('saved');
+  setTimeout(() => { lbl.textContent = ''; lbl.classList.remove('saved'); }, 2000);
+}
 function loadJournal() {
   document.getElementById('journal-text').value = load('journal', '');
 }
+document.getElementById('journal-text').addEventListener('input', () => {
+  const lbl = journalLbl();
+  lbl.textContent = 'Saving…';
+  lbl.classList.remove('saved');
+  clearTimeout(journalSaveTimer);
+  journalSaveTimer = setTimeout(saveJournal, 800);
+});
 document.getElementById('journal-save').addEventListener('click', () => {
-  save('journal', document.getElementById('journal-text').value);
+  clearTimeout(journalSaveTimer);
+  saveJournal();
   showToast('Journal saved 💜');
 });
 
