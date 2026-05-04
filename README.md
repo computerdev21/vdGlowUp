@@ -21,11 +21,15 @@ A beautiful, mobile-friendly website for tracking your June glow-up journey.
 2. Open it in Safari (iPhone) or Chrome (Android)
 3. Tap **Share → Add to Home Screen** to pin it as an app icon 📱
 
-### Option B — Host it online (free)
-1. Push this repo to GitHub (already done!)
-2. Go to **Settings → Pages → Source → main branch / root**
-3. Your site will be live at `https://computerdev21.github.io/vdGlowUp/`
-4. Share the link with your girlfriend 💖
+### Option B — Deploy on Vercel (recommended)
+1. Go to [vercel.com](https://vercel.com) and sign in with GitHub
+2. Click **Add New → Project** and import this repo (`computerdev21/vdGlowUp`)
+3. Leave all settings as default — Vercel will detect the static site automatically
+4. Click **Deploy** ✅
+5. Your site will be live at `https://vd-glow-up.vercel.app` (or similar)
+6. Share the link with your girlfriend 💖
+
+> Every time you push to `main`, Vercel re-deploys automatically.
 
 ## Tech stack
 
