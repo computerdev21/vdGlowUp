@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>✨ My June Glow-Up Plan ✨</title>
+  <title>✨ My Glow-Up Plan ✨</title>
   <style>
     /* ── Reset & base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -347,8 +347,8 @@
 
 <!-- Header -->
 <header>
-  <h1>✨ My June Glow-Up Plan ✨</h1>
-  <p class="subtitle">30 days of becoming my best self 🌸</p>
+  <h1>✨ My <span id="header-month">Glow-Up</span> Plan ✨</h1>
+  <p class="subtitle" id="header-subtitle">Becoming my best self 🌸</p>
 </header>
 
 <!-- Quote banner -->
@@ -363,7 +363,7 @@
   <div class="card">
     <div class="card-header">
       <span class="card-icon">🔥</span>
-      <span class="card-title">My June Progress</span>
+      <span class="card-title" id="progress-card-title">My Progress</span>
     </div>
     <div id="streak-bar">
       <div id="streak-count">0</div>
@@ -391,7 +391,7 @@
   <div class="card">
     <div class="card-header">
       <span class="card-icon">📅</span>
-      <span class="card-title">June Glow Calendar</span>
+      <span class="card-title" id="calendar-card-title">Glow Calendar</span>
     </div>
     <div id="calendar-grid"></div>
     <p style="font-size:0.78rem;color:#9ca3af;margin-top:10px;text-align:center;">Tap a past day to mark it as a glow day 💖</p>
@@ -401,7 +401,7 @@
   <div class="card">
     <div class="card-header">
       <span class="card-icon">🎯</span>
-      <span class="card-title">My June Goals</span>
+      <span class="card-title" id="goals-card-title">My Goals</span>
     </div>
     <div id="goals-list"></div>
     <button class="add-goal-btn" id="add-goal-btn">＋ Add a goal</button>
@@ -431,7 +431,7 @@
 
 <footer>
   <span>🌸</span>
-  Made with love · June 2026
+  Made with love · <span id="footer-month-year">2026</span>
 </footer>
 
 <div id="toast"></div>
@@ -441,7 +441,7 @@
    Data
 ──────────────────────────────────────── */
 const HABITS = [
-  { id: 'water',     emoji: '💧', name: 'Drink 8 glasses of water',   sub: 'Hydration is glow' },
+  { id: 'water',     emoji: '💧', name: 'Drink 4 bottles of water',    sub: '~2 litres · Hydration is glow' },
   { id: 'skincare',  emoji: '✨', name: 'AM & PM skincare routine',    sub: 'Cleanse · tone · moisturise' },
   { id: 'move',      emoji: '🏃‍♀️', name: 'Move your body 30 min',      sub: 'Walk · dance · stretch · gym' },
   { id: 'fruit_veg', emoji: '🥗', name: 'Eat fruit & veggies',         sub: 'Nourish from the inside out' },
@@ -600,11 +600,14 @@ function buildCalendar() {
     grid.appendChild(el);
   });
 
-  const firstDay = new Date(2026, 5, 1).getDay(); // June 2026 starts on Monday (1)
-  const today    = new Date();
-  const todayD   = today.getDate();
-  const isJune   = today.getMonth() === 5 && today.getFullYear() === 2026;
-  const glowDays = load('glow_days', []);
+  const now        = new Date();
+  const year       = now.getFullYear();
+  const month      = now.getMonth();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDay   = new Date(year, month, 1).getDay();
+  const todayD     = now.getDate();
+  const mm         = String(month + 1).padStart(2, '0');
+  const glowDays   = load('glow_days', []);
 
   // empty cells
   for (let i = 0; i < firstDay; i++) {
@@ -613,11 +616,11 @@ function buildCalendar() {
     grid.appendChild(el);
   }
 
-  for (let d = 1; d <= 30; d++) {
-    const el   = document.createElement('div');
-    const dateStr = `2026-06-${String(d).padStart(2,'0')}`;
-    const isPast  = !isJune ? true : d <= todayD;
-    const isToday = isJune && d === todayD;
+  for (let d = 1; d <= daysInMonth; d++) {
+    const el      = document.createElement('div');
+    const dateStr = `${year}-${mm}-${String(d).padStart(2,'0')}`;
+    const isPast  = d < todayD;
+    const isToday = d === todayD;
     const glowed  = glowDays.includes(dateStr);
 
     el.className = `cal-day${glowed ? ' glowed' : ''}${isToday ? ' today' : ''}${!isPast && !isToday ? ' future' : ''}`;
@@ -653,12 +656,14 @@ function toggleGlowDay(dateStr) {
    Progress / Streak
 ──────────────────────────────────────── */
 function updateProgress() {
-  const glowDays = load('glow_days', []);
-  const count    = glowDays.length;
-  const pct      = Math.round((count / 30) * 100);
+  const glowDays   = load('glow_days', []);
+  const count      = glowDays.length;
+  const now        = new Date();
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const pct        = Math.round((count / daysInMonth) * 100);
 
   document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-label').textContent = `${count} / 30 days glowed up`;
+  document.getElementById('progress-label').textContent = `${count} / ${daysInMonth} days glowed up`;
 
   // streak — consecutive days ending today
   let streak = 0;
@@ -749,12 +754,31 @@ document.getElementById('journal-save').addEventListener('click', () => {
 });
 
 /* ────────────────────────────────────────
+   Month labels
+──────────────────────────────────────── */
+function initMonthLabels() {
+  const now = new Date();
+  const monthName = now.toLocaleDateString('en-US', { month: 'long' });
+  const year = now.getFullYear();
+  const daysInMonth = new Date(year, now.getMonth() + 1, 0).getDate();
+
+  document.getElementById('header-month').textContent = monthName + ' Glow-Up';
+  document.getElementById('header-subtitle').textContent = `${daysInMonth} days of becoming my best self 🌸`;
+  document.getElementById('progress-card-title').textContent = `My ${monthName} Progress`;
+  document.getElementById('calendar-card-title').textContent = `${monthName} Glow Calendar`;
+  document.getElementById('goals-card-title').textContent = `My ${monthName} Goals`;
+  document.getElementById('footer-month-year').textContent = `${monthName} ${year}`;
+  document.title = `✨ My ${monthName} Glow-Up Plan ✨`;
+}
+
+/* ────────────────────────────────────────
    Init
 ──────────────────────────────────────── */
 setQuote();
 showAffirmation(false);
 affIdx = Math.floor(Math.random() * AFFIRMATIONS.length);
 showAffirmation(false);
+initMonthLabels();
 renderHabits();
 buildCalendar();
 updateProgress();
