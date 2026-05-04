@@ -254,6 +254,98 @@
     }
     .add-goal-btn:hover { border-color: var(--purple); background: rgba(192,132,252,0.07); }
 
+    /* ── Food Recommendations ── */
+    .food-section { margin-bottom: 14px; }
+    .food-section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--purple);
+      margin-bottom: 8px;
+    }
+    .food-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .food-chip {
+      background: linear-gradient(135deg, rgba(249,168,212,0.22), rgba(192,132,252,0.16));
+      border: 1.5px solid rgba(192,132,252,0.25);
+      border-radius: 99px;
+      padding: 5px 12px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--dark);
+      white-space: nowrap;
+    }
+
+    /* ── Recipe Card ── */
+    .recipe-hero {
+      background: linear-gradient(135deg, #fdf2f8, #faf5ff);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1.5px solid rgba(249,168,212,0.4);
+      text-align: center;
+    }
+    .recipe-hero .recipe-emoji { font-size: 2.6rem; display: block; margin-bottom: 6px; }
+    .recipe-hero h3 { font-size: 1.05rem; font-weight: 800; color: var(--mid); margin-bottom: 4px; }
+    .recipe-hero p  { font-size: 0.82rem; color: #6b7280; }
+    .recipe-section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--rose);
+      margin: 12px 0 6px;
+    }
+    .recipe-ingredients {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .recipe-ingredient {
+      background: rgba(253,230,138,0.35);
+      border: 1.5px solid rgba(251,113,133,0.2);
+      border-radius: 99px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+      color: var(--dark);
+    }
+    .recipe-steps { list-style: none; padding: 0; }
+    .recipe-steps li {
+      display: flex;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(192,132,252,0.2);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .recipe-steps li:last-child { border-bottom: none; }
+    .recipe-step-num {
+      min-width: 24px; height: 24px;
+      background: linear-gradient(135deg, var(--rose), var(--purple));
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .recipe-tip {
+      margin-top: 12px;
+      background: rgba(192,132,252,0.1);
+      border-left: 3px solid var(--purple);
+      border-radius: 0 10px 10px 0;
+      padding: 10px 12px;
+      font-size: 0.83rem;
+      color: var(--dark);
+      line-height: 1.5;
+    }
+
     /* ── Affirmations ── */
     .affirmation-card {
       background: linear-gradient(135deg, #fdf2f8, #faf5ff);
@@ -414,6 +506,122 @@
     </div>
     <div id="goals-list"></div>
     <button class="add-goal-btn" id="add-goal-btn">＋ Add a goal</button>
+  </div>
+
+  <!-- Food Recommendations -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🥑</span>
+      <span class="card-title">Glow-Up Food Guide</span>
+    </div>
+
+    <div class="food-section">
+      <div class="food-section-title">✨ Skin Glow</div>
+      <div class="food-chips">
+        <span class="food-chip">🥑 Avocado</span>
+        <span class="food-chip">🍓 Berries</span>
+        <span class="food-chip">🥕 Carrots</span>
+        <span class="food-chip">🍅 Tomatoes</span>
+        <span class="food-chip">🫑 Bell peppers</span>
+        <span class="food-chip">🌰 Walnuts</span>
+      </div>
+    </div>
+
+    <div class="food-section">
+      <div class="food-section-title">💧 Hydration &amp; Glow</div>
+      <div class="food-chips">
+        <span class="food-chip">🍉 Watermelon</span>
+        <span class="food-chip">🥒 Cucumber</span>
+        <span class="food-chip">🍋 Lemon water</span>
+        <span class="food-chip">🥬 Leafy greens</span>
+        <span class="food-chip">🍊 Oranges</span>
+      </div>
+    </div>
+
+    <div class="food-section">
+      <div class="food-section-title">⚡ Energy &amp; Focus</div>
+      <div class="food-chips">
+        <span class="food-chip">🍌 Banana</span>
+        <span class="food-chip">🥜 Almond butter</span>
+        <span class="food-chip">🫘 Chickpeas</span>
+        <span class="food-chip">🍚 Brown rice</span>
+        <span class="food-chip">🟢 Edamame</span>
+        <span class="food-chip">🫐 Blueberries</span>
+      </div>
+    </div>
+
+    <div class="food-section" style="margin-bottom:0">
+      <div class="food-section-title">💇‍♀️ Hair &amp; Nails</div>
+      <div class="food-chips">
+        <span class="food-chip">🥚 Eggs</span>
+        <span class="food-chip">🌿 Spinach</span>
+        <span class="food-chip">🫘 Lentils</span>
+        <span class="food-chip">🌻 Sunflower seeds</span>
+        <span class="food-chip">🧀 Greek yogurt</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fun Veg Dish -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🍜</span>
+      <span class="card-title">Fun Veg Dish to Try 🌈</span>
+    </div>
+
+    <div class="recipe-hero">
+      <span class="recipe-emoji">🥣</span>
+      <h3>Rainbow Buddha Bowl</h3>
+      <p>Colourful · Nourishing · Ready in 20 min · Totally Instagrammable</p>
+    </div>
+
+    <div class="recipe-section-label">🛒 Ingredients (serves 2)</div>
+    <div class="recipe-ingredients">
+      <span class="recipe-ingredient">🍚 1 cup brown rice</span>
+      <span class="recipe-ingredient">🥑 1 avocado</span>
+      <span class="recipe-ingredient">🥕 2 carrots</span>
+      <span class="recipe-ingredient">🫘 1 can chickpeas</span>
+      <span class="recipe-ingredient">🥒 ½ cucumber</span>
+      <span class="recipe-ingredient">🌽 ½ cup sweetcorn</span>
+      <span class="recipe-ingredient">🥬 2 handfuls spinach</span>
+      <span class="recipe-ingredient">🍋 1 lemon</span>
+      <span class="recipe-ingredient">🧄 2 garlic cloves</span>
+      <span class="recipe-ingredient">2 tbsp tahini</span>
+      <span class="recipe-ingredient">1 tbsp olive oil</span>
+      <span class="recipe-ingredient">soy sauce · paprika · salt</span>
+    </div>
+
+    <div class="recipe-section-label">👩‍🍳 Steps</div>
+    <ol class="recipe-steps">
+      <li>
+        <div class="recipe-step-num">1</div>
+        <span>Cook the rice according to packet instructions. While it cooks, preheat your oven to 200 °C (400 °F).</span>
+      </li>
+      <li>
+        <div class="recipe-step-num">2</div>
+        <span>Drain &amp; rinse chickpeas. Toss with olive oil, paprika, garlic powder and a pinch of salt. Roast on a baking tray for 20 min until crispy.</span>
+      </li>
+      <li>
+        <div class="recipe-step-num">3</div>
+        <span>Peel &amp; ribbon or grate the carrots. Slice the cucumber into half-moons. Halve and slice the avocado. Keep everything separate — the rainbow effect is the whole vibe!</span>
+      </li>
+      <li>
+        <div class="recipe-step-num">4</div>
+        <span>Make the tahini dressing: whisk 2 tbsp tahini + juice of ½ lemon + 1 crushed garlic clove + 1 tbsp soy sauce + 3 tbsp water until smooth and pourable.</span>
+      </li>
+      <li>
+        <div class="recipe-step-num">5</div>
+        <span>Divide rice between two bowls. Arrange spinach, carrots, cucumber, sweetcorn, avocado and crispy chickpeas in colourful sections on top.</span>
+      </li>
+      <li>
+        <div class="recipe-step-num">6</div>
+        <span>Drizzle tahini dressing generously over everything. Finish with a squeeze of lemon and sesame seeds if you have them. Enjoy! 🌸</span>
+      </li>
+    </ol>
+
+    <div class="recipe-tip">
+      💡 <strong>Pro tip:</strong> Batch-roast a big tray of chickpeas on Sunday and use them all week as a protein-packed snack or salad topper!
+    </div>
   </div>
 
   <!-- Affirmations -->
